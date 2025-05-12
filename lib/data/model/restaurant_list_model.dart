@@ -1,7 +1,7 @@
 import 'package:restaurant_app/data/model/restaurant_model.dart';
 
 class RestaurantListModel {
-  final String error;
+  final bool error;
   final String message;
   final int count;
   final List<RestaurantModel> restaurant;

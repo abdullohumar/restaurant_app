@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:restaurant_app/data/model/restaurant_model.dart';
+import 'package:restaurant_app/data/model/restaurant_list_model/restaurant_model.dart';
 
 class RestaurantCardWidget extends StatelessWidget {
   final Function() onTap;

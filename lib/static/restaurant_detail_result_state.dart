@@ -1,0 +1,25 @@
+import 'package:restaurant_app/data/model/restaurant_detail_model/restaurant_detail_model.dart';
+
+sealed class RestaurantDetailResultState {}
+
+class RestaurantDetailNoneState extends RestaurantDetailResultState {}
+
+class RestaurantDetailLoadingState extends RestaurantDetailResultState {}
+
+class RestaurantDetailErrorState extends RestaurantDetailResultState {
+  final String message;
+
+  RestaurantDetailErrorState(this.message);
+}
+
+class RestaurantDetailLoadedState extends RestaurantDetailResultState {
+  final String message;
+  final bool error;
+  final RestaurantDetailModel restaurant;
+
+  RestaurantDetailLoadedState({
+    required this.message,
+    required this.error,
+    required this.restaurant,
+  });
+}

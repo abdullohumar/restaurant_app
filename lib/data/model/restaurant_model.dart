@@ -18,4 +18,14 @@ class RestaurantModel {
       rating: (json['rating'] as num).toDouble(),
     );
   }
+
+  // Method untuk generate URL gambar
+  String get smallPictureUrl =>
+      'https://restaurant-api.dicoding.dev/images/small/$pictureId';
+
+  String get mediumPictureUrl =>
+      'https://restaurant-api.dicoding.dev/images/medium/$pictureId';
+
+  String get largePictureUrl =>
+      'https://restaurant-api.dicoding.dev/images/large/$pictureId';
 }

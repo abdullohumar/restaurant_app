@@ -37,7 +37,7 @@ class RestaurantTheme {
 
   static ThemeData get lightTheme {
     return ThemeData(
-      colorSchemeSeed: TourismColors.blue.color,
+      colorSchemeSeed: TourismColors.red.color,
       useMaterial3: true,
       brightness: Brightness.light,
       appBarTheme: _appBarTheme,
@@ -47,7 +47,7 @@ class RestaurantTheme {
 
   static ThemeData get darkTheme {
     return ThemeData(
-      colorSchemeSeed: TourismColors.blue.color,
+      colorSchemeSeed: TourismColors.red.color,
       useMaterial3: true,
       brightness: Brightness.dark,
       appBarTheme: _appBarTheme,

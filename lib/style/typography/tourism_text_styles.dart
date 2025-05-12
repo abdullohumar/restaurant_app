@@ -31,7 +31,7 @@ class TourismTextStyles {
 
    /// headlineLarge Text Style
  static TextStyle headlineLarge = _commonStyle.copyWith(
-   fontSize: 32,
+   fontSize: 36,
    fontWeight: FontWeight.w600,
    height: 1.5,
    letterSpacing: -1,
@@ -39,7 +39,7 @@ class TourismTextStyles {
  
  /// headlineMedium Text Style
  static TextStyle headlineMedium = _commonStyle.copyWith(
-   fontSize: 28,
+   fontSize: 23,
    fontWeight: FontWeight.w500,
    height: 1.2,
    letterSpacing: -1,

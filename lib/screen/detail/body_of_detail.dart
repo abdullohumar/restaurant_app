@@ -16,11 +16,14 @@ class BodyOfDetail extends StatelessWidget {
           // Gambar
           ClipRRect(
             borderRadius: BorderRadius.circular(16),
-            child: Image.network(
-              restaurantDetail.largePictureUrl,
-              height: 200,
-              width: double.infinity,
-              fit: BoxFit.cover,
+            child: Hero(
+              tag: restaurantDetail.smallPictureUrl,
+              child: Image.network(
+                restaurantDetail.largePictureUrl,
+                height: 200,
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
             ),
           ),
           const SizedBox(height: 16),

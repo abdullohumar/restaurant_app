@@ -24,7 +24,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFF8F8F8),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -42,16 +41,13 @@ class _HomeScreenState extends State<HomeScreen> {
                       style: Theme.of(
                         context,
                       ).textTheme.headlineMedium?.copyWith(
-                        color: const Color.fromRGBO(71, 78, 87, 1.0),
                         fontWeight: FontWeight.bold,
                       ),
                     ),
                     const SizedBox(height: 4),
                     Text(
                       'Recommendation restaurant for you!',
-                      style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        color: Colors.grey[600],
-                      ),
+                      style: Theme.of(context).textTheme.titleMedium,
                     ),
                   ],
                 ),

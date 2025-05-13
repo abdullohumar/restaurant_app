@@ -17,11 +17,9 @@ class RestaurantCardWidget extends StatelessWidget {
       onTap: onTap,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
           borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
-              color: Colors.black12,
               blurRadius: 6,
               offset: const Offset(0, 3),
             ),
@@ -71,14 +69,12 @@ class RestaurantCardWidget extends StatelessWidget {
                         Icon(
                           Icons.location_on,
                           size: 16,
-                          color: Colors.grey[400],
                         ),
                         const SizedBox(width: 4),
                         Text(
                           restaurant.city,
                           style: TextStyle(
                             fontSize: 13,
-                            color: Colors.grey[600],
                           ),
                         ),
                       ],
@@ -92,7 +88,6 @@ class RestaurantCardWidget extends StatelessWidget {
                           restaurant.rating.toString(),
                           style: TextStyle(
                             fontSize: 13,
-                            color: Colors.grey[600],
                           ),
                         ),
                       ],

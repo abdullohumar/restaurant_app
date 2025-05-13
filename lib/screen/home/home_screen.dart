@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/provider/home/restaurant_list_provider.dart';
 import 'package:restaurant_app/screen/home/restaurant_card_widget.dart';
+import 'package:restaurant_app/static/navigation_route.dart';
 import 'package:restaurant_app/static/restaurant_list_result_state.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -75,7 +76,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             final restaurant = restaurantList[index];
                             return RestaurantCardWidget(
                               restaurant: restaurant,
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  NavigationRoute.detailRoute.path,
+                                  arguments: restaurant.id,
+                                );
+                              },
                             );
                           },
                         ),

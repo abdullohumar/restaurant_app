@@ -13,13 +13,9 @@ class RestaurantDetailErrorState extends RestaurantDetailResultState {
 }
 
 class RestaurantDetailLoadedState extends RestaurantDetailResultState {
-  final String message;
-  final bool error;
-  final RestaurantDetailModel restaurant;
+  final RestaurantDetailModel restaurantDetails;
 
   RestaurantDetailLoadedState({
-    required this.message,
-    required this.error,
-    required this.restaurant,
+    required this.restaurantDetails,
   });
 }

@@ -1,136 +1,48 @@
-import 'package:flutter/material.dart';
+import 'dart:async';
 
-class RestaurantDetailScreen extends StatelessWidget {
-  const RestaurantDetailScreen({super.key});
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
+import 'package:restaurant_app/screen/detail/body_of_detail.dart';
+import 'package:restaurant_app/static/restaurant_detail_result_state.dart';
+
+class RestaurantDetailScreen extends StatefulWidget {
+  final String id;
+  const RestaurantDetailScreen({super.key, required this.id});
+
+  @override
+  State<RestaurantDetailScreen> createState() => _RestaurantDetailScreenState();
+}
+
+class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Future.microtask(() {
+      context.read<RestaurantDetailProvider>().fetchDetailRestaurant(widget.id);
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Restaurant Detail'),
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Gambar
-            ClipRRect(
-              borderRadius: BorderRadius.circular(16),
-              child: Image.network(
-                'https://restaurant-api.dicoding.dev/images/large/14',
-                height: 200,
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ),
+      appBar: AppBar(title: const Text('Restaurant Detail')),
+      body: Consumer<RestaurantDetailProvider>(
+        builder: (context, provider, _) {
+          final state = provider.resultState;
+
+          return switch (state) {
+            RestaurantDetailLoadingState() => const Center(
+              child: CircularProgressIndicator(),
             ),
-            const SizedBox(height: 16),
-
-            // Nama dan kota
-            Text(
-              'Melting Pot',
-              style: Theme.of(context).textTheme.headlineMedium,
+            RestaurantDetailErrorState(message: var message) => Center(
+              child: Text(message),
             ),
-            const SizedBox(height: 4),
-            Row(
-              children: const [
-                Icon(Icons.location_city, size: 18, color: Colors.grey),
-                SizedBox(width: 4),
-                Text('Medan'),
-              ],
-            ),
-            const SizedBox(height: 4),
-            Row(
-              children: const [
-                Icon(Icons.location_on, size: 18, color: Colors.grey),
-                SizedBox(width: 4),
-                Text('Jln. Pandeglang no 19'),
-              ],
-            ),
-            const SizedBox(height: 4),
-            Row(
-              children: const [
-                Icon(Icons.star, size: 18, color: Colors.orange),
-                SizedBox(width: 4),
-                Text('4.2'),
-              ],
-            ),
-
-            const SizedBox(height: 16),
-
-            // Kategori
-            const Text('Categories:', style: TextStyle(fontWeight: FontWeight.bold)),
-            const Wrap(
-              spacing: 8.0,
-              children: [
-                Chip(label: Text('Italia')),
-                Chip(label: Text('Modern')),
-              ],
-            ),
-
-            const SizedBox(height: 16),
-
-            // Deskripsi
-            const Text('Description:', style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 4),
-            const Text(
-              'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor...',
-              textAlign: TextAlign.justify,
-            ),
-
-            const SizedBox(height: 16),
-
-            // Menu Makanan
-            const Text('Food Menu:', style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            const Wrap(
-              spacing: 8.0,
-              children: [
-                Chip(label: Text('Paket rosemary')),
-                Chip(label: Text('Toastie salmon')),
-                Chip(label: Text('Bebek crepes')),
-                Chip(label: Text('Salad lengkeng')),
-              ],
-            ),
-
-            const SizedBox(height: 16),
-
-            // Menu Minuman
-            const Text('Drink Menu:', style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Wrap(
-              spacing: 8.0,
-              runSpacing: 4.0,
-              children: const [
-                Chip(label: Text('Es krim')),
-                Chip(label: Text('Sirup')),
-                Chip(label: Text('Jus apel')),
-                Chip(label: Text('Jus jeruk')),
-                Chip(label: Text('Coklat panas')),
-                Chip(label: Text('Air')),
-                Chip(label: Text('Es kopi')),
-                Chip(label: Text('Jus alpukat')),
-                Chip(label: Text('Jus mangga')),
-                Chip(label: Text('Teh manis')),
-                Chip(label: Text('Kopi espresso')),
-                Chip(label: Text('Minuman soda')),
-                Chip(label: Text('Jus tomat')),
-              ],
-            ),
-
-            const SizedBox(height: 16),
-
-            // Review pelanggan
-            const Text('Customer Reviews:', style: TextStyle(fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            const ListTile(
-              contentPadding: EdgeInsets.zero,
-              leading: CircleAvatar(child: Text('A')),
-              title: Text('Ahmad'),
-              subtitle: Text('"Tidak rekomendasi untuk pelajar!"\n13 November 2019'),
-            ),
-          ],
-        ),
+            RestaurantDetailLoadedState(restaurantDetails: var detail) =>
+              BodyOfDetail(restaurantDetail: detail),
+            _ => const Center(child: Text('No data')),
+          };
+        },
       ),
     );
   }

@@ -24,6 +24,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor:
+          Theme.of(context).brightness == Brightness.dark
+              ? Colors.brown[900] 
+              : Colors.white,
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
@@ -38,11 +42,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   children: [
                     Text(
                       'Restaurant',
-                      style: Theme.of(
-                        context,
-                      ).textTheme.headlineMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: Theme.of(context).textTheme.headlineMedium
+                          ?.copyWith(fontWeight: FontWeight.bold),
                     ),
                     const SizedBox(height: 4),
                     Text(
@@ -70,15 +71,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               (_, __) => const SizedBox(height: 16),
                           itemBuilder: (context, index) {
                             final restaurant = restaurantList[index];
-                            return RestaurantCardWidget(
-                              restaurant: restaurant,
-                              onTap: () {
-                                Navigator.pushNamed(
-                                  context,
-                                  NavigationRoute.detailRoute.path,
-                                  arguments: restaurant.id,
-                                );
-                              },
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                              child: RestaurantCardWidget(
+                                restaurant: restaurant,
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    NavigationRoute.detailRoute.path,
+                                    arguments: restaurant.id,
+                                  );
+                                },
+                              ),
                             );
                           },
                         ),

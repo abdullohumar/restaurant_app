@@ -28,4 +28,15 @@ class RestaurantModel {
 
   String get largePictureUrl =>
       'https://restaurant-api.dicoding.dev/images/large/$pictureId';
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      "id":id,
+      "name":name,
+      "description" : description,
+      "pictureId" : pictureId,
+      "city" : city,
+      "rating" : rating
+    };
+  }
 }

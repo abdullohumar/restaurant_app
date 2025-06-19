@@ -2,8 +2,11 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/data/model/restaurant_list_model/restaurant_model.dart';
+import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/screen/detail/body_of_detail.dart';
+import 'package:restaurant_app/screen/detail/favorite_icon_widget.dart';
 import 'package:restaurant_app/static/restaurant_detail_result_state.dart';
 
 class RestaurantDetailScreen extends StatefulWidget {
@@ -26,7 +29,32 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Restaurant Detail')),
+      appBar: AppBar(
+        title: const Text('Restaurant Detail'),
+        actions: [
+          ChangeNotifierProvider(
+            create: (context) => FavoriteIconProvider(),
+            child: Consumer<RestaurantDetailProvider>(
+              builder: (context, value, child) {
+                return switch (value.resultState) {
+                  RestaurantDetailLoadedState(restaurantDetails: var detail) =>
+                    FavoriteIconWidget(
+                      restaurant: RestaurantModel(
+                        id: detail.id,
+                        name: detail.name,
+                        description: detail.description,
+                        pictureId: detail.pictureId,
+                        city: detail.city,
+                        rating: detail.rating,
+                      ),
+                    ),
+                    _ => const SizedBox()
+                };
+              },
+            ),
+          ),
+        ],
+      ),
       body: Consumer<RestaurantDetailProvider>(
         builder: (context, provider, _) {
           final state = provider.resultState;

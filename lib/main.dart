@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/data/api/api_services.dart';
 import 'package:restaurant_app/data/local/local_database_service.dart';
+import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
 import 'package:restaurant_app/provider/detail/favorite_list_provider.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/provider/favorite/local_database_provider.dart';
@@ -35,6 +36,7 @@ void main() {
           context.read<LocalDatabaseService>()
         )),
         ChangeNotifierProvider(create: (context) => FavoriteListProvider()),
+        ChangeNotifierProvider(create: (context) => FavoriteIconProvider()),
       ],
       child: MyApp(),
     ),

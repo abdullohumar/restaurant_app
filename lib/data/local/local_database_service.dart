@@ -1,3 +1,4 @@
+import 'package:restaurant_app/data/model/restaurant_detail_model/restaurant_detail_model.dart';
 import 'package:restaurant_app/data/model/restaurant_list_model/restaurant_model.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -27,7 +28,7 @@ class LocalDatabaseService {
     );
   }
 
-  Future<int> insertItem(RestaurantModel restaurant) async {
+  Future<int> insertItem(RestaurantDetailModel restaurant) async {
     final db = await _initializeDb();
 
     final data = restaurant.toJson();

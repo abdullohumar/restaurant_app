@@ -2,7 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:restaurant_app/data/model/restaurant_list_model/restaurant_model.dart';
 import 'package:restaurant_app/provider/detail/favorite_icon_provider.dart';
 import 'package:restaurant_app/provider/detail/restaurant_detail_provider.dart';
 import 'package:restaurant_app/screen/detail/body_of_detail.dart';
@@ -38,17 +37,8 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
               builder: (context, value, child) {
                 return switch (value.resultState) {
                   RestaurantDetailLoadedState(restaurantDetails: var detail) =>
-                    FavoriteIconWidget(
-                      restaurant: RestaurantModel(
-                        id: detail.id,
-                        name: detail.name,
-                        description: detail.description,
-                        pictureId: detail.pictureId,
-                        city: detail.city,
-                        rating: detail.rating,
-                      ),
-                    ),
-                    _ => const SizedBox()
+                    FavoriteIconWidget(restaurant: detail[0]),
+                  _ => const SizedBox(),
                 };
               },
             ),
@@ -67,7 +57,7 @@ class _RestaurantDetailScreenState extends State<RestaurantDetailScreen> {
               child: Text(message),
             ),
             RestaurantDetailLoadedState(restaurantDetails: var detail) =>
-              BodyOfDetail(restaurantDetail: detail),
+              BodyOfDetail(restaurantDetail: detail[0]),
             _ => const Center(child: Text('No data')),
           };
         },

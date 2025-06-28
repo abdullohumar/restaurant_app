@@ -13,7 +13,7 @@ class RestaurantDetailErrorState extends RestaurantDetailResultState {
 }
 
 class RestaurantDetailLoadedState extends RestaurantDetailResultState {
-  final RestaurantDetailModel restaurantDetails;
+  final List<RestaurantDetailModel> restaurantDetails;
 
   RestaurantDetailLoadedState({
     required this.restaurantDetails,

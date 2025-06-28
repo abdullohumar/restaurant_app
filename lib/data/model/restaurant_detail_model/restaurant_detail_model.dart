@@ -51,17 +51,19 @@ class RestaurantDetailModel {
       city: json['city'] as String,
       address: json['address'] as String,
       pictureId: json['pictureId'] as String,
-      categories: (json['categories'] as List)
-          .map((e) => Category.fromJson(e))
-          .toList(),
+      categories:
+          (json['categories'] as List)
+              .map((e) => Category.fromJson(e))
+              .toList(),
       menus: Menus.fromJson(json['menus']),
       rating: (json['rating'] as num).toDouble(),
-      customerReviews: (json['customerReviews'] as List)
-          .map((e) => CustomerReview.fromJson(e))
-          .toList(),
+      customerReviews:
+          (json['customerReviews'] as List)
+              .map((e) => CustomerReview.fromJson(e))
+              .toList(),
     );
   }
-    // Method untuk generate URL gambar
+  // Method untuk generate URL gambar
   String get smallPictureUrl =>
       'https://restaurant-api.dicoding.dev/images/small/$pictureId';
 
@@ -70,19 +72,33 @@ class RestaurantDetailModel {
 
   String get largePictureUrl =>
       'https://restaurant-api.dicoding.dev/images/large/$pictureId';
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      "id": id,
+      "name": name,
+      "description": description,
+      "city": city,
+      "address": address,
+      "pictureId": pictureId,
+      "categories": categories.map((e) => e.toJson()).toList(),
+      "menus": menus.toJson(),
+      "rating": rating,
+      "customerReviews": customerReviews.map((e) => e.toJson()).toList(),
+    };
+  }
 }
 
 class Category {
   final String name;
 
-  Category({
-    required this.name,
-  });
+  Category({required this.name});
 
   factory Category.fromJson(Map<String, dynamic> json) {
-    return Category(
-      name: json['name'] as String,
-    );
+    return Category(name: json['name'] as String);
+  }
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{"name": name};
   }
 }
 
@@ -104,25 +120,30 @@ class CustomerReview {
       date: json['date'] as String,
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{"name": name, "review": review, "date": date};
+  }
 }
 
 class Menus {
   final List<Category> foods;
   final List<Category> drinks;
 
-  Menus({
-    required this.foods,
-    required this.drinks,
-  });
+  Menus({required this.foods, required this.drinks});
 
   factory Menus.fromJson(Map<String, dynamic> json) {
     return Menus(
-      foods: (json['foods'] as List)
-          .map((e) => Category.fromJson(e))
-          .toList(),
-      drinks: (json['drinks'] as List)
-          .map((e) => Category.fromJson(e))
-          .toList(),
+      foods: (json['foods'] as List).map((e) => Category.fromJson(e)).toList(),
+      drinks:
+          (json['drinks'] as List).map((e) => Category.fromJson(e)).toList(),
     );
+  }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      "foods": foods.map((e) => e.toJson()).toList(),
+      "drinks": drinks.map((e) => e.toJson()).toList(),
+    };
   }
 }

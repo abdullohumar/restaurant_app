@@ -3,9 +3,9 @@ import 'package:restaurant_app/data/model/restaurant_list_model/restaurant_model
 import 'package:sqflite/sqflite.dart';
 
 class LocalDatabaseService {
-  static const String _databaseName = 'restaurant-app.db';
-  static const String _tableName = 'tourism';
-  static const int _version = 1;
+  static const String _databaseName = 'restaurant-app1.db';
+  static const String _tableName = 'restaurant';
+  static const int _version = 4;
 
   Future<void> createTables(Database database) async {
     await database.execute("""CREATE TABLE $_tableName(
@@ -14,7 +14,8 @@ class LocalDatabaseService {
         description TEXT,
         pictureId TEXT,
         city TEXT,
-        rating TEXT
+        address TEXT,
+        rating REAL
       )""");
   }
 
@@ -25,18 +26,25 @@ class LocalDatabaseService {
       onCreate: (Database database, int version) async {
         await createTables(database);
       },
+      onUpgrade: (Database db, int oldVersion, int newVersion) async {
+        // Hapus tabel lama (opsional, jika mau rebuild)
+        await db.execute('DROP TABLE IF EXISTS $_tableName');
+        // Buat ulang
+        await createTables(db);
+      },
     );
   }
 
   Future<int> insertItem(RestaurantDetailModel restaurant) async {
     final db = await _initializeDb();
 
-    final data = restaurant.toJson();
+    final data = restaurant.toDbJson();
     final id = await db.insert(
       _tableName,
       data,
       conflictAlgorithm: ConflictAlgorithm.replace,
     );
+    print("SAVED TO DB: $data");
     return id;
   }
 
@@ -53,11 +61,11 @@ class LocalDatabaseService {
   }
 
   Future<List<RestaurantModel>> getAllItems() async {
-   final db = await _initializeDb();
-   final results = await db.query(_tableName);
- 
-   return results.map((result) => RestaurantModel.fromJson(result)).toList();
- }
+    final db = await _initializeDb();
+    final results = await db.query(_tableName);
+
+    return results.map((result) => RestaurantModel.fromJson(result)).toList();
+  }
 
   Future<int> removeItem(String id) async {
     final db = await _initializeDb();

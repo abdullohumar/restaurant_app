@@ -87,6 +87,18 @@ class RestaurantDetailModel {
       "customerReviews": customerReviews.map((e) => e.toJson()).toList(),
     };
   }
+
+  Map<String, dynamic> toDbJson() {
+    return {
+      "id": id,
+      "name": name,
+      "description": description,
+      "pictureId": pictureId,
+      "city": city,
+      "address": address,
+      "rating": rating,
+    };
+  }
 }
 
 class Category {
